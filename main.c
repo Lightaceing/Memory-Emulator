@@ -2,12 +2,16 @@
 #include <stdlib.h>
 #include "functions.h"
 
-
-int main(){
+// global var.
     int cell_count = 8;
     int width = 8;
 
-    char *ptr = createMainMemory(cell_count, width);
-    displayMainMemory(ptr, width);
-    deallocateMainMemory(ptr);
+int main(){
+
+    // scanf("Enter");
+    char **ptr = createMainMemory(cell_count, width);
+    displayMainMemory(ptr);
+    // deallocateMainMemory(ptr);
+    //printf("%zu",sizeof(char*));
+    return 0;
 }

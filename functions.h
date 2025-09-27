@@ -1,31 +1,58 @@
-void displayMainMemory(char *arr, int width);
-char* createMainMemory(int cell_count, int width);
-bool deallocateMainMemory(char *arr);
 
-//TODO:impletment cell_count 
-char* createMainMemory(int cell_count, int width){
+extern int cell_count;
+extern int width;
+
+
+void displayMainMemory(char **arr);
+char** createMainMemory(int cell_count, int width);
+void deallocateMainMemory(char **arr);
+
+
+char** createMainMemory(int cell_count, int width){
     
-    char *ptr = (char*) malloc(sizeof(char)*width);
-    if(ptr == NULL){
-        printf("Memory not allocated.\n");
-        exit;
+    char **ptr_MM = (char**) malloc(sizeof(char*)*cell_count);
+    
+    for(int i=0;i<cell_count;i++){
+        
+        char *ptr = (char*) malloc(sizeof(char)*width);
+        
+        if(ptr == NULL){
+            printf("Memory not allocated to the simulator.\n");
+            exit;
+        }
+        
+        ptr_MM[i] = ptr;
     }
 
-    for(int i = 0;i<width;i++){
-        ptr[i] = '#';
+    // filling #'s
+    for(int i=0;i<cell_count;i++){
+        
+        for(int j=0;j<width;j++){
+            ptr_MM[i][j] = '#';
+        }
     }
-    return ptr;
+
+    return ptr_MM;
 }
 
 
-//TODO:implement cell_count
-void displayMainMemory(char *arr, int width){
-    for(int i=0;i<width;i++){
-        printf("%c", *(arr + sizeof(char)*i));
+void displayMainMemory(char **arr){
+
+    for(int i=0;i<cell_count;i++){
+        for(int j=0;j<width;j++){
+            printf("%c", arr[i][j]);
+
+        }
+        
+        printf("\n");
     }
 }
 
-bool deallocateMainMemory(char *arr){
+
+void deallocateMainMemory(char **arr){
+    for(int i=0;i<cell_count;i++){
+        free(arr[i]);
+    }
     free(arr);
     printf("Memory deallocated!");
 }
